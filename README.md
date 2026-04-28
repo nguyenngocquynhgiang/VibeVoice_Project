@@ -1,8 +1,17 @@
 # VibeVoice ASR - Phiên bản cá nhân
 
-https://github.com/user-attachments/assets/812acf71-a4de-4b2c-bbef-95339d71d0d8
-
-https://github.com/user-attachments/assets/f3fa961d-f354-487a-a3ea-2c93af8cc411
+<table>
+  <tr>
+    <td width="50%">
+      <b>Video 1</b><br>
+      <video src="https://github.com/user-attachments/assets/f3d77073-b91f-4c04-9920-2eaf65c58fdd" controls="controls" width="100%"></video>
+    </td>
+    <td width="50%">
+      <b>Video 2</b><br>
+      <video src="https://github.com/user-attachments/assets/f73333d2-e98d-4de2-b725-563df9c28730" controls="controls" width="100%"></video>
+    </td>
+  </tr>
+</table>
 
  (VibeVoice Edit)
 
