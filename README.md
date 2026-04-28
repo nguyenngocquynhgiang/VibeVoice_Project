@@ -1,208 +1,49 @@
-<div align="center">
+# VibeVoice ASR - Phiên bản cá nhân
 
-## 🎙️ VibeVoice: Open-Source Frontier Voice AI
-[![Project Page](https://img.shields.io/badge/Project-Page-blue?logo=githubpages)](https://microsoft.github.io/VibeVoice)
-[![Hugging Face](https://img.shields.io/badge/HuggingFace-Collection-orange?logo=huggingface)](https://huggingface.co/collections/microsoft/vibevoice-68a2ef24a875c44be47b034f)
-[![TTS Report](https://img.shields.io/badge/TTS-Report-red?logo=arxiv)](https://openreview.net/pdf?id=FihSkzyxdv)
-[![ASR Report](https://img.shields.io/badge/ASR-Report-yellow?logo=arxiv)](https://arxiv.org/pdf/2601.18184)
-[![Colab](https://img.shields.io/badge/StreamingTTS-Colab-green?logo=googlecolab)](https://colab.research.google.com/github/microsoft/VibeVoice/blob/main/demo/VibeVoice_colab.ipynb)
-[![ASR Playground](https://img.shields.io/badge/ASR-Playground-6F42C1?logo=gradio)](https://aka.ms/vibevoice-asr)
+https://github.com/user-attachments/assets/812acf71-a4de-4b2c-bbef-95339d71d0d8
 
-[![microsoft%2FVibeVoice | Trendshift](https://trendshift.io/api/badge/repositories/15465)](https://trendshift.io/repositories/15465)
+https://github.com/user-attachments/assets/f3fa961d-f354-487a-a3ea-2c93af8cc411
 
-</div>
+ (VibeVoice Edit)
 
+Dự án này là phiên bản tối ưu hóa và tinh chỉnh lại từ mã nguồn gốc **VibeVoice** của Microsoft. Mục tiêu chính là chuyển đổi một công cụ nghiên cứu kỹ thuật thành một sản phẩm (Product) hoàn thiện, thân thiện với người dùng cuối và hoạt động ổn định trên các tài nguyên miễn phí như Google Colab.
 
-<div align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="Figures/VibeVoice_logo_white.png">
-  <img src="Figures/VibeVoice_logo.png" alt="VibeVoice Logo" width="300">
-</picture>
-</div>
+---
 
-<div align="left">
+##  Các thay đổi và Nâng cấp chính
 
-<h3>📰 News</h3>
+### 1. Giao diện Người dùng (UI/UX) Chuyên nghiệp
+* **Tối giản hóa:** Loại bỏ toàn bộ các biểu tượng (emoji) và icon rườm rà.
+* **Ngôn ngữ:** Việt hóa 100% các thông báo, nhãn (labels) và hướng dẫn sử dụng.
+* **Bố cục:** Chuyển sang bố cục 2 cột (Input - Output) chuẩn doanh nghiệp.
+* **Tiện ích:** Thêm nút "Copy to Clipboard" cho văn bản kết quả và tính năng nghe lại từng đoạn hội thoại đã phân rã.
+* **Ẩn kỹ thuật:** Giấu các thông số phức tạp (Temperature, Top-p, Penalty...) vào phần ẩn để người dùng không bị rối mắt, nhưng vẫn giữ được độ chính xác của AI.
 
-<strong>🎉 <a href="https://vibingjustspeakit.github.io/Vibing/">Vibing</a>, an intelligent voice input method built by the community, is now powered by VibeVoice-ASR. Download: [macOS](https://github.com/VibingJustSpeakIt/Vibing/releases/download/v0.1.0/Vibing-v0.1.0-mac.dmg) | [Windows EXE Installer (Recommended)](https://get.microsoft.com/installer/download/9pjf89frgg1d) | [Windows ZIP (Portable)](https://github.com/VibingJustSpeakIt/Vibing/releases/download/v0.1.3/Vibing-v0.1.3-windows.zip)</strong>
+### 2. Mở rộng Khả năng Đa phương thức
+* **Hỗ trợ Video trực tiếp:** Mở khóa khả năng nhận diện trực tiếp từ các định dạng video phổ biến như `.mp4`, `.mov`, `.avi`, `.mkv`, `.webm`.
+* **Tích hợp Link Mạng xã hội:** Sử dụng thư viện `yt-dlp` để cho phép người dùng chỉ cần dán link YouTube, TikTok hoặc Facebook là hệ thống tự động tải, tách âm thanh và bóc băng.
 
-https://github.com/user-attachments/assets/db0bb23f-ae06-4135-a66a-1ff1669f4f84
+### 3. Tối ưu hóa Hiệu suất & Phần cứng
+* **Ép cân 4-bit:** Sử dụng kỹ thuật Quantization (`bitsandbytes`) để nén mô hình từ 18GB VRAM xuống còn khoảng 5GB, giúp chạy ổn định trên card đồ họa Tesla T4 (16GB) mà không bị lỗi "Out of Memory".
+* **Liger Kernel:** Tích hợp nhân tối ưu hóa Liger để tăng tốc độ tính toán ma trận, giúp quá trình bóc băng diễn ra nhanh hơn và tiêu tốn ít tài nguyên hơn.
+* **Quản lý Cache thông minh:** Cấu hình hệ thống tự động lưu trữ "não bộ" AI vào Google Drive, giúp bỏ qua bước tải 18GB dữ liệu ở những lần khởi động sau.
 
-<strong>2026-03-06: 🚀 VibeVoice ASR is now part of a <a href="https://huggingface.co/microsoft/VibeVoice-ASR-HF">Transformers release</a>! You can now use our speech recognition model directly through the Hugging Face Transformers library for seamless integration into your projects.</strong>
+---
 
-<strong>2026-01-21:</strong> 📣 We open-sourced <a href="docs/vibevoice-asr.md"><strong>VibeVoice-ASR</strong></a>, a unified speech-to-text model designed to handle 60-minute long-form audio in a single pass, generating structured transcriptions containing Who (Speaker), When (Timestamps), and What (Content), with support for User-Customized Context. Try it in [Playground](https://aka.ms/vibevoice-asr).
-- ⭐️ VibeVoice-ASR is natively multilingual, supporting over 50 languages — check the [supported languages](docs/vibevoice-asr.md#language-distribution) for details.
-- 🔥 The VibeVoice-ASR [finetuning code](finetuning-asr/README.md) is now available!
-- ⚡️ **vLLM inference** is now supported for faster inference; see [vllm-asr](docs/vibevoice-vllm-asr.md) for more details.
-- 📑 [VibeVoice-ASR Technique Report](https://arxiv.org/pdf/2601.18184) is available.
+## 🛠 Các lỗi kỹ thuật đã được khắc phục (Bug Fixes)
 
-2025-12-16: 📣 We added experimental speakers to <a href="docs/vibevoice-realtime-0.5b.md"><strong>VibeVoice‑Realtime‑0.5B</strong></a> for exploration, including multilingual voices in nine languages (DE, FR, IT, JP, KR, NL, PL, PT, ES) and 11 distinct English style voices. [Try it](docs/vibevoice-realtime-0.5b.md#optional-more-experimental-voices). More speaker types will be added over time.
+Hệ thống đã được vá các lỗi quan trọng từ bản gốc và trong quá trình triển khai:
+1.  **Lỗi Danh sách Định dạng:** Sửa lỗi `AttributeError: 'list' object has no attribute 'update'` bằng cách chuyển sang phương thức `.extend()` chuẩn cho danh sách đuôi file video.
+2.  **Lỗi Giới hạn Slider:** Khắc phục lỗi `Value 32768 is greater than maximum value 100` bằng cách thiết lập lại phạm vi điều khiển của Gradio, cho phép xử lý các đoạn hội thoại dài với số lượng Token lớn.
+3.  **Lỗi Lệch Tensor (Device Mapping):** Ép cứng quy trình nạp mô hình lên `cuda` thay vì để `auto`, giải quyết triệt để lỗi "Tensors are on different devices" khi bóc băng.
+4.  **Lỗi Xung đột Tiến trình:** Cấu hình khởi chạy trên các cổng mạng (Port) linh hoạt để tránh bị treo khi khởi động lại ứng dụng nhiều lần trên cùng một phiên làm việc.
 
-2025-12-03: 📣 We open-sourced <a href="docs/vibevoice-realtime-0.5b.md"><strong>VibeVoice‑Realtime‑0.5B</strong></a>, a real‑time text‑to‑speech model that supports streaming text input and robust long-form speech generation. Try it on [Colab](https://colab.research.google.com/github/microsoft/VibeVoice/blob/main/demo/vibevoice_realtime_colab.ipynb).
+---
 
+## 📂 Cấu trúc Tệp tin Quan trọng
+* `app_pro.py`: File khởi chạy chính với giao diện chuyên nghiệp.
+* `vibevoice/`: Thư mục chứa hạt nhân thuật toán (Core AI).
+* `demo/vibevoice_asr_gradio_demo.py`: Mã nguồn giao diện đã được đại tu.
 
-2025-09-05: VibeVoice is an open-source research framework intended to advance collaboration in the speech synthesis community. After release, we discovered instances where the tool was used in ways inconsistent with the stated intent. Since responsible use of AI is one of Microsoft’s guiding principles, we have removed the VibeVoice-TTS code from this repository.
-
-
-2025-08-25: 📣 We open-sourced <a href="docs/vibevoice-tts.md"><strong>VibeVoice-TTS</strong></a>, a long-form multi-speaker text-to-speech model that can synthesize speech up to 90 minutes long with up to 4 distinct speakers. — accepted as an [Oral](https://openreview.net/forum?id=FihSkzyxdv) at ICLR 2026! 🔥
-
-</div>
-
-## Overview
-
-VibeVoice is a **family of open-source frontier voice AI models** that includes both Text-to-Speech (TTS) and Automatic Speech Recognition (ASR) models. 
-
-A core innovation of VibeVoice is its use of continuous speech tokenizers (Acoustic and Semantic) operating at an ultra-low frame rate of **7.5 Hz**. These tokenizers efficiently preserve audio fidelity while significantly boosting computational efficiency for processing long sequences. VibeVoice employs a [next-token diffusion](https://arxiv.org/abs/2412.08635) framework, leveraging a Large Language Model (LLM) to understand textual context and dialogue flow, and a diffusion head to generate high-fidelity acoustic details.
-
-For more information, demos, and examples, please visit our [Project Page](https://microsoft.github.io/VibeVoice).
-
-
-<div align="center">
-
-| Model |   Weight | Quick Try |
-|-------|--------------|---------|
-| VibeVoice-ASR-7B | [HF Link](https://huggingface.co/microsoft/VibeVoice-ASR) |  [Playground](https://aka.ms/vibevoice-asr) |
-| VibeVoice-TTS-1.5B | [HF Link](https://huggingface.co/microsoft/VibeVoice-1.5B) | Disabled |
-| VibeVoice-Realtime-0.5B | [HF Link](https://huggingface.co/microsoft/VibeVoice-Realtime-0.5B) | [Colab](https://colab.research.google.com/github/microsoft/VibeVoice/blob/main/demo/vibevoice_realtime_colab.ipynb) |
-
-</div>
-
-## Models
-
-
-### 1. 📖 [VibeVoice-ASR](docs/vibevoice-asr.md) - Long-form Speech Recognition
-
-**VibeVoice-ASR** is a unified speech-to-text model designed to handle **60-minute long-form audio** in a single pass, generating structured transcriptions containing **Who (Speaker), When (Timestamps), and What (Content)**, with support for **Customized Hotwords**.
-
-- **🕒 60-minute Single-Pass Processing**:
-  Unlike conventional ASR models that slice audio into short chunks (often losing global context), VibeVoice ASR accepts up to **60 minutes** of continuous audio input within 64K token length. This ensures consistent speaker tracking and semantic coherence across the entire hour.
-
-- **👤 Customized Hotwords**:
-  Users can provide customized hotwords (e.g., specific names, technical terms, or background info) to guide the recognition process, significantly improving accuracy on domain-specific content.
-
-- **📝 Rich Transcription (Who, When, What)**:
-  The model jointly performs ASR, diarization, and timestamping, producing a structured output that indicates *who* said *what* and *when*.
-
-[📖 Documentation](docs/vibevoice-asr.md) | [🤗 Hugging Face](https://huggingface.co/microsoft/VibeVoice-ASR) | [🎮 Playground](https://aka.ms/vibevoice-asr) | [🛠️ Finetuning](finetuning-asr/README.md) |  [📊 Paper](docs/VibeVoice-ASR-Report.pdf)
-
-
-<p align="center">
-  <img src="Figures/DER.jpg" alt="DER" width="50%"><br>
-  <img src="Figures/cpWER.jpg" alt="cpWER" width="50%"><br>
-  <img src="Figures/tcpWER.jpg" alt="tcpWER" width="50%">
-</p>
-
-
-<div align="center" id="vibevoice-asr">
-
-https://github.com/user-attachments/assets/acde5602-dc17-4314-9e3b-c630bc84aefa
-
-</div>
-<br>
-
-### 2. 🎙️ [VibeVoice-TTS](docs/vibevoice-tts.md) - Long-form Multi-speaker TTS
-
-**Best for**: Long-form conversational audio, podcasts, multi-speaker dialogues
-
-- **⏱️ 90-minute Long-form Generation**:
-  Synthesizes conversational/single-speaker speech up to **90 minutes** in a single pass, maintaining speaker consistency and semantic coherence throughout.
-
-- **👥 Multi-speaker Support**:
-  Supports up to **4 distinct speakers** in a single conversation, with natural turn-taking and speaker consistency across long dialogues.
-
-- **🎭 Expressive Speech**:
-  Generates expressive, natural-sounding speech that captures conversational dynamics and emotional nuances.
-
-- **🌐 Multi-lingual Support**:
-  Supports English, Chinese and other languages.
-
-
-[📖 Documentation](docs/vibevoice-tts.md) | [🤗 Hugging Face](https://huggingface.co/microsoft/VibeVoice-1.5B)  |  [📊 Paper](https://arxiv.org/pdf/2508.19205)
-
-
-<div align="center">
-  <img src="Figures/VibeVoice-TTS-results.jpg" alt="VibeVoice Results" width="80%">
-</div>
-
-
-**English**
-<div align="center">
-
-https://github.com/user-attachments/assets/0967027c-141e-4909-bec8-091558b1b784
-
-</div>
-
-
-**Chinese**
-<div align="center">
-
-https://github.com/user-attachments/assets/322280b7-3093-4c67-86e3-10be4746c88f
-
-</div>
-
-**Cross-Lingual**
-<div align="center">
-
-https://github.com/user-attachments/assets/838d8ad9-a201-4dde-bb45-8cd3f59ce722
-
-</div>
-
-**Spontaneous Singing**
-<div align="center">
-
-https://github.com/user-attachments/assets/6f27a8a5-0c60-4f57-87f3-7dea2e11c730
-
-</div>
-
-
-**Long Conversation with 4 people**
-<div align="center">
-
-https://github.com/user-attachments/assets/a357c4b6-9768-495c-a576-1618f6275727
-
-</div>
-
-
-
-
-
-<br>
-
-### 3. ⚡ [VibeVoice-Streaming](docs/vibevoice-realtime-0.5b.md) - Real-time Streaming TTS
-
-VibeVoice-Realtime is a **lightweight real‑time** text-to-speech model supporting **streaming text input** and **robust long-form speech generation**.
-
-- Parameter size: 0.5B (deployment-friendly)
-- Real-time TTS (~300 milliseconds first audible latency)
-- Streaming text input
-- Robust long-form speech generation (~10 minutes)
-
-[📖 Documentation](docs/vibevoice-realtime-0.5b.md) | [🤗 Hugging Face](https://huggingface.co/microsoft/VibeVoice-Realtime-0.5B) | [🚀 Colab](https://colab.research.google.com/github/microsoft/VibeVoice/blob/main/demo/vibevoice_realtime_colab.ipynb)
-
-
-<div align="center" id="generated-example-audio-vibevoice-realtime">
-
-https://github.com/user-attachments/assets/0901d274-f6ae-46ef-a0fd-3c4fba4f76dc
-
-</div>
-
-<br>
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
-
-
-
-## ⚠️ Risks and Limitations
-
-
-While efforts have been made to optimize it through various techniques, it may still produce outputs that are unexpected, biased, or inaccurate. VibeVoice inherits any biases, errors, or omissions produced by its base model (specifically, Qwen2.5 1.5b in this release).
-Potential for Deepfakes and Disinformation: High-quality synthetic speech can be misused to create convincing fake audio content for impersonation, fraud, or spreading disinformation. Users must ensure transcripts are reliable, check content accuracy, and avoid using generated content in misleading ways. Users are expected to use the generated content and to deploy the models in a lawful manner, in full compliance with all applicable laws and regulations in the relevant jurisdictions. It is best practice to disclose the use of AI when sharing AI-generated content.
-
-
-We do not recommend using VibeVoice in commercial or real-world applications without further testing and development. This model is intended for research and development purposes only. Please use responsibly.
-
-## Star History
-
-![Star History Chart](https://api.star-history.com/svg?repos=Microsoft/vibevoice&type=date&legend=top-left)
+---
+**Ghi chú:** Đây là dự án cá nhân được phát triển dựa trên nền tảng VibeVoice của Microsoft Research.
